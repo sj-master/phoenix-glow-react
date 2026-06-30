@@ -9,9 +9,7 @@
  * Also add the Phoenix HSL token block to your global CSS (see README),
  * or import "phoenix-glow-react/styles/phoenix-glow.css" for the Glow kit.
  */
-import type { Config } from "tailwindcss";
-
-const preset: Partial<Config> = {
+const preset = {
   darkMode: ["class"],
   theme: {
     extend: {
