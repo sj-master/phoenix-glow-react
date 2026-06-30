@@ -1,7 +1,7 @@
 {
   "name": "phoenix-glow-react",
   "version": "2.1.0",
-  "description": "PHX-IT \u2022 Phoenix UI by Skyler Jones \u2014 a full React component library: the self-contained neon Glow kit plus 37 Tailwind + Radix UI components.",
+  "description": "PHX-IT • Phoenix UI by Skyler Jones — a full React component library: the self-contained neon Glow kit plus 37 Tailwind + Radix UI components.",
   "author": "Skyler Jones <PHX-IT>",
   "homepage": "https://phoenixsecure.dev",
   "license": "Apache-2.0",
@@ -88,7 +88,7 @@
     "@vitejs/plugin-react": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tsup": "^8.0.0",
+    "tsup": "^8.5.1",
     "typescript": "^5.0.0",
     "vite": "^5.0.0"
   },
