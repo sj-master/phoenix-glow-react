@@ -1,0 +1,11 @@
+# Source TS is bundled into dist; only ship dist + css
+src/components
+src/index.ts
+
+# Dev / tooling
+demo
+vite.config.ts
+tsup.config.ts
+tsconfig.json
+*.log
+.DS_Store

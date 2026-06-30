@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>phoenix-glow-react — PHX-IT Component Showcase by Skyler Jones</title>
+<link rel="icon" href="./assets/favicon.ico" />
+<meta name="description" content="Neon React components by Skyler Jones (PHX-IT). The Phoenix Glow kit, shown live. phoenixsecure.dev" />
+<style>
+/* ============ embedded component styles (phoenix-glow-react) ============ */
+/*!
+ * phoenix-glow-react
+ * Copyright (c) 2025 Skyler J. Jones
+ * Licensed under the Apache License, Version 2.0
+ */
+
+:root {
+  --pgr-orange: 12 100% 62%;
+  --pgr-pink: 330 100% 65%;
+  --pgr-purple: 270 91% 65%;
+  --pgr-blue: 200 100% 50%;
+  --pgr-cyan: 190 100% 55%;
+  --pgr-green: 142 71% 45%;
+
+  --pgr-bg: #0a0a0a;
+  --pgr-bg-soft: #111111;
+  --pgr-bg-card: #161616;
+  --pgr-border: rgba(255, 255, 255, 0.08);
+  --pgr-border-strong: rgba(255, 255, 255, 0.16);
+  --pgr-text: #ffffff;
+  --pgr-text-soft: #b5b5b5;
+  --pgr-text-muted: #8d8d8d;
+
+  --pgr-radius: 0.9rem;
+  --pgr-radius-lg: 1.25rem;
+  --pgr-transition: 0.2s ease;
+}
+
+/* ---------- glow keyframes ---------- */
+@keyframes pgr-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 18px hsl(var(--pgr-accent) / 0.55),
+      0 0 38px hsl(var(--pgr-accent) / 0.32),
+      0 0 60px hsl(var(--pgr-accent) / 0.16);
+  }
+  50% {
+    box-shadow:
+      0 0 28px hsl(var(--pgr-accent) / 0.8),
+      0 0 56px hsl(var(--pgr-accent) / 0.5),
+      0 0 88px hsl(var(--pgr-accent) / 0.28);
+  }
+}
+
+/* ---------- Button ---------- */
+.pgr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.3rem;
+  border: 0;
+  border-radius: var(--pgr-radius);
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.55);
+  transition: transform var(--pgr-transition), filter var(--pgr-transition), opacity var(--pgr-transition);
+}
+.pgr-btn:hover { transform: translateY(-1px); filter: brightness(1.06); }
+.pgr-btn:active { transform: translateY(0); }
+.pgr-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; filter: none; }
+
+.pgr-btn--orange { background: linear-gradient(90deg, #ff5630 0%, #ffaa1d 100%); --pgr-accent: var(--pgr-orange); }
+.pgr-btn--pink   { background: linear-gradient(90deg, #ff2d8e 0%, #ff7ac0 100%); --pgr-accent: var(--pgr-pink); }
+.pgr-btn--purple { background: linear-gradient(90deg, #7c3aed 0%, #db2777 100%); --pgr-accent: var(--pgr-purple); }
+.pgr-btn--blue   { background: linear-gradient(90deg, #2563eb 0%, #06b6d4 100%); --pgr-accent: var(--pgr-blue); }
+.pgr-btn--cyan   { background: linear-gradient(90deg, #0891b2 0%, #22d3ee 100%); --pgr-accent: var(--pgr-cyan); }
+.pgr-btn--green  { background: linear-gradient(90deg, #16a34a 0%, #10b981 100%); --pgr-accent: var(--pgr-green); }
+.pgr-btn--outline {
+  background: transparent;
+  border: 1px solid var(--pgr-border-strong);
+  text-shadow: none;
+  --pgr-accent: var(--pgr-orange);
+}
+.pgr-btn--outline:hover { border-color: hsl(var(--pgr-orange) / 0.5); color: #ffb273; }
+
+.pgr-btn--glow { animation: pgr-pulse 2s ease-in-out infinite; }
+
+/* ---------- Input ---------- */
+.pgr-input {
+  width: 100%;
+  padding: 0.78rem 1rem;
+  border-radius: var(--pgr-radius);
+  border: 1px solid var(--pgr-border-strong);
+  background: #0f0f0f;
+  color: #fff;
+  font: inherit;
+  outline: none;
+  transition: border-color var(--pgr-transition), box-shadow var(--pgr-transition);
+}
+.pgr-input::placeholder { color: var(--pgr-text-muted); }
+.pgr-input:focus {
+  border-color: hsl(var(--pgr-cyan) / 0.55);
+  box-shadow: 0 0 0 3px hsl(var(--pgr-cyan) / 0.14), 0 0 18px hsl(var(--pgr-cyan) / 0.3);
+}
+
+/* ---------- Card ---------- */
+.pgr-card {
+  background: var(--pgr-bg-soft);
+  border: 1px solid var(--pgr-border);
+  border-radius: var(--pgr-radius-lg);
+  padding: 1.5rem;
+  color: var(--pgr-text);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transition: transform var(--pgr-transition), box-shadow var(--pgr-transition), border-color var(--pgr-transition);
+  --pgr-accent: var(--pgr-purple);
+}
+.pgr-card--hover-glow:hover {
+  transform: translateY(-2px);
+  border-color: hsl(var(--pgr-accent) / 0.4);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.3),
+    0 0 26px hsl(var(--pgr-accent) / 0.35),
+    0 0 50px hsl(var(--pgr-accent) / 0.18);
+}
+
+/* ---------- Switch ---------- */
+.pgr-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 3.25rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: #2a2a2a;
+  transition: background var(--pgr-transition), box-shadow var(--pgr-transition);
+  --pgr-accent: var(--pgr-green);
+}
+.pgr-switch__thumb {
+  position: absolute;
+  top: 50%;
+  left: 0.22rem;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  background: #fff;
+  transform: translateY(-50%);
+  transition: left var(--pgr-transition), box-shadow var(--pgr-transition);
+}
+.pgr-switch[aria-checked="true"] {
+  background: linear-gradient(90deg, #16a34a, #10b981);
+  box-shadow: 0 0 16px hsl(var(--pgr-accent) / 0.6), 0 0 30px hsl(var(--pgr-accent) / 0.35);
+}
+.pgr-switch[aria-checked="true"] .pgr-switch__thumb {
+  left: calc(100% - 1.52rem);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+.pgr-switch:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ---------- Badge ---------- */
+.pgr-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: hsl(var(--pgr-accent) / 0.14);
+  border: 1px solid hsl(var(--pgr-accent) / 0.4);
+  text-shadow: 0 0 8px hsl(var(--pgr-accent) / 0.7);
+  box-shadow: 0 0 12px hsl(var(--pgr-accent) / 0.3), inset 0 0 10px hsl(var(--pgr-accent) / 0.12);
+}
+.pgr-badge--orange { --pgr-accent: var(--pgr-orange); }
+.pgr-badge--pink   { --pgr-accent: var(--pgr-pink); }
+.pgr-badge--purple { --pgr-accent: var(--pgr-purple); }
+.pgr-badge--blue   { --pgr-accent: var(--pgr-blue); }
+.pgr-badge--cyan   { --pgr-accent: var(--pgr-cyan); }
+.pgr-badge--green  { --pgr-accent: var(--pgr-green); }
+
+/* ---------- Accordion ---------- */
+.pgr-accordion {
+  border: 1px solid var(--pgr-border);
+  border-radius: var(--pgr-radius);
+  background: var(--pgr-bg-soft);
+  overflow: hidden;
+  --pgr-accent: var(--pgr-orange);
+}
+.pgr-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--pgr-transition), color var(--pgr-transition);
+}
+.pgr-accordion__trigger:hover { color: #ffb273; background: rgba(255, 255, 255, 0.02); }
+.pgr-accordion__icon {
+  transition: transform var(--pgr-transition);
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+.pgr-accordion[data-open="true"] .pgr-accordion__icon { transform: rotate(180deg); }
+.pgr-accordion[data-open="true"] {
+  border-color: hsl(var(--pgr-accent) / 0.4);
+  box-shadow: 0 0 22px hsl(var(--pgr-accent) / 0.22);
+}
+.pgr-accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--pgr-transition);
+}
+.pgr-accordion[data-open="true"] .pgr-accordion__panel { grid-template-rows: 1fr; }
+.pgr-accordion__panel-inner {
+  overflow: hidden;
+  color: var(--pgr-text-soft);
+}
+.pgr-accordion__panel-inner > div { padding: 0 1.25rem 1.1rem; }
+
+
+
+/* ============ landing page chrome (not part of the library) ============ */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background:
+    radial-gradient(circle at 15% -5%, rgba(255, 86, 48, 0.16), transparent 38%),
+    radial-gradient(circle at 85% 8%, rgba(124, 58, 237, 0.16), transparent 36%),
+    radial-gradient(circle at 60% 100%, rgba(6, 182, 212, 0.10), transparent 45%),
+    #0a0a0a;
+  color: #fff;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+a { color: inherit; }
+.lp-container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* nav */
+.lp-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(10,10,10,0.72);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.lp-nav-row { display: flex; align-items: center; justify-content: space-between; min-height: 4rem; gap: 1rem; }
+.lp-brand { display: flex; align-items: center; gap: 0.7rem; font-weight: 800; font-size: 1.05rem; }
+.lp-logo { width: 1.8rem; height: 1.8rem; border-radius: 0.55rem; background: linear-gradient(135deg,#ff5630,#ffaa1d); box-shadow: 0 0 16px rgba(255,86,48,0.55); }
+.lp-nav-links { display: none; gap: 1.4rem; font-size: 0.95rem; }
+.lp-nav-links a { color: #b5b5b5; text-decoration: none; transition: color .2s; }
+.lp-nav-links a:hover { color: #ffb273; }
+@media (min-width: 760px){ .lp-nav-links { display: flex; } }
+
+/* hero */
+.lp-hero { text-align: center; padding: 5rem 0 3.5rem; }
+.lp-hero h1 {
+  font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 800; line-height: 1.02; margin: 1.2rem 0 0.4rem;
+}
+.lp-gradient-text {
+  background: linear-gradient(90deg,#ff5630 0%,#ff2d8e 22%,#a855f7 45%,#3b82f6 65%,#22d3ee 82%,#10b981 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.lp-hero p { color: #b5b5b5; font-size: 1.15rem; max-width: 620px; margin: 0.6rem auto 2rem; }
+.lp-hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; }
+
+/* sections */
+.lp-section { padding: 3.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); }
+.lp-section-head { margin-bottom: 1.75rem; }
+.lp-eyebrow { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: #ffb273; font-weight: 700; }
+.lp-section-head h2 { font-size: 1.9rem; font-weight: 800; margin: 0.4rem 0 0.3rem; }
+.lp-section-head p { color: #8d8d8d; margin: 0; }
+
+/* demo block: live preview + code */
+.lp-demo {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 1.1rem;
+  overflow: hidden;
+  background: rgba(255,255,255,0.015);
+}
+.lp-stage {
+  padding: 2.25rem 1.75rem;
+  display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+  background:
+    linear-gradient(rgba(255,255,255,0.018), rgba(255,255,255,0.018)),
+    repeating-linear-gradient(45deg, transparent, transparent 11px, rgba(255,255,255,0.012) 11px, rgba(255,255,255,0.012) 22px);
+}
+.lp-stage--col { flex-direction: column; align-items: stretch; }
+.lp-stage--center { justify-content: center; }
+.lp-code {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  background: #0d0d0d;
+  position: relative;
+}
+.lp-code pre {
+  margin: 0; padding: 1.1rem 1.25rem; overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.84rem; color: #d6d6d6; line-height: 1.7;
+}
+.lp-code .tok-tag { color: #ff8e8f; }
+.lp-code .tok-attr { color: #ffd479; }
+.lp-code .tok-str { color: #7ee787; }
+.lp-copy {
+  position: absolute; top: 0.7rem; right: 0.7rem;
+  border: 1px solid rgba(255,255,255,0.14); background: #181818; color: #ddd;
+  border-radius: 0.55rem; padding: 0.35rem 0.7rem; font-size: 0.78rem; cursor: pointer;
+  transition: border-color .2s, transform .15s;
+}
+.lp-copy:hover { border-color: rgba(255,86,48,0.5); transform: translateY(-1px); }
+.lp-copy.copied { color: #74d79d; border-color: rgba(116,215,157,0.5); }
+
+.lp-grid-3 { display: grid; grid-template-columns: 1fr; gap: 1.25rem; width: 100%; }
+@media (min-width: 720px){ .lp-grid-3 { grid-template-columns: repeat(3, 1fr); } }
+
+.lp-mut { color: #8d8d8d; font-size: 0.9rem; }
+.lp-row-label { width: 100%; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: #6f6f6f; margin-bottom: -0.25rem; }
+
+/* footer */
+.lp-footer { padding: 3rem 0 4rem; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: #8d8d8d; font-size: 0.9rem; }
+.lp-footer code { background: #161616; padding: 0.15rem 0.45rem; border-radius: 0.4rem; color: #ffb273; }
+
+/* ---- PHX-IT additions ---- */
+.lp-logo-img {
+  width: 2rem; height: 2rem; border-radius: 0.55rem; display: block;
+  box-shadow: 0 0 16px rgba(255,45,142,0.45), 0 0 24px rgba(34,211,238,0.30);
+}
+.lp-nav-actions { display: flex; align-items: center; gap: 0.7rem; }
+.lp-icon-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.2rem; height: 2.2rem; border-radius: 0.6rem;
+  border: 1px solid rgba(255,255,255,0.12); color: #b5b5b5;
+  transition: color .2s, border-color .2s, transform .15s, box-shadow .2s;
+}
+.lp-icon-link:hover { color: #fff; border-color: rgba(255,86,48,0.5); transform: translateY(-1px); box-shadow: 0 0 14px rgba(255,86,48,0.35); }
+.lp-icon-link svg { width: 1.15rem; height: 1.15rem; }
+
+.lp-hero-icon {
+  width: clamp(108px, 18vw, 150px); height: clamp(108px, 18vw, 150px);
+  border-radius: 30px; margin: 0 auto 0.5rem; display: block;
+  filter: drop-shadow(0 0 42px rgba(255,45,142,0.40)) drop-shadow(0 0 64px rgba(34,211,238,0.28));
+  animation: lp-float 6s ease-in-out infinite;
+}
+@keyframes lp-float { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-12px);} }
+@media (prefers-reduced-motion: reduce){ .lp-hero-icon { animation: none; } }
+
+/* link-styled glow buttons (for anchor tags) */
+a.pgr-btn { text-decoration: none; }
+
+/* "npm coming soon" placeholder pill */
+.lp-soon { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #ffaa1d; border: 1px solid rgba(255,170,29,0.4); border-radius: 999px; padding: 0.05rem 0.4rem; margin-left: 0.4rem; }
+</style>
+</head>
+<body>
+
+<nav class="lp-nav">
+  <div class="lp-container lp-nav-row">
+    <div class="lp-brand"><span class="lp-logo"></span> phoenix-glow-react</div>
+    <div class="lp-nav-links">
+      <a href="#buttons">Buttons</a>
+      <a href="#inputs">Inputs</a>
+      <a href="#cards">Cards</a>
+      <a href="#switch">Switch</a>
+      <a href="#badges">Badges</a>
+      <a href="#accordion">Accordion</a>
+    </div>
+    <div class="lp-nav-actions">
+      <a class="lp-icon-link" href="https://github.com/sj-master/phoenix-glow-react" target="_blank" rel="noopener" aria-label="GitHub repository">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+      </a>
+      <a class="lp-icon-link" href="https://www.npmjs.com/package/phoenix-glow-react" target="_blank" rel="noopener" aria-label="npm package (publishing soon)">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0H1.763zM5.13 5.323h13.74v13.354h-3.435V8.758h-3.434v9.919H5.13V5.323z"/></svg>
+      </a>
+      <span class="pgr-badge pgr-badge--green">v2.1.0</span>
+    </div>
+  </div>
+</nav>
+
+<header class="lp-hero">
+  <div class="lp-container">
+    <span class="pgr-badge pgr-badge--orange">Apache-2.0 · React + TypeScript</span>
+    <h1><span class="lp-gradient-text">Neon components</span><br/>for React</h1>
+    <p>Every component in the Phoenix Glow kit, shown live with the exact styles your package ships. Copy the snippet under any example to drop it into your app.</p>
+    <div class="lp-hero-actions">
+      <a class="pgr-btn pgr-btn--orange pgr-btn--glow" href="https://github.com/sj-master/phoenix-glow-react" target="_blank" rel="noopener">Get started on GitHub</a>
+      <a class="pgr-btn pgr-btn--outline" href="https://www.npmjs.com/package/phoenix-glow-react" target="_blank" rel="noopener">View on npm<span class="lp-soon">soon</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="lp-container">
+
+  <!-- BUTTONS -->
+  <section class="lp-section" id="buttons">
+    <div class="lp-section-head">
+      <div class="lp-eyebrow">GlowButton</div>
+      <h2>Buttons</h2>
+      <p>Six gradient variants, an outline style, an optional pulsing glow, and a disabled state.</p>
+    </div>
+    <div class="lp-demo">
+      <div class="lp-stage">
+        <div class="lp-row-label">Variants</div>
+        <button class="pgr-btn pgr-btn--orange">Orange</button>
+        <button class="pgr-btn pgr-btn--pink">Pink</button>
+        <button class="pgr-btn pgr-btn--purple">Purple</button>
+        <button class="pgr-btn pgr-btn--blue">Blue</button>
+        <button class="pgr-btn pgr-btn--cyan">Cyan</button>
+        <button class="pgr-btn pgr-btn--green">Green</button>
+        <div class="lp-row-label">States</div>
+        <button class="pgr-btn pgr-btn--orange pgr-btn--glow">Pulsing glow</button>
+        <button class="pgr-btn pgr-btn--outline">Outline</button>
+        <button class="pgr-btn pgr-btn--purple" disabled>Disabled</button>
+      </div>
+      <div class="lp-code"><button class="lp-copy">Copy</button><pre><span class="tok-tag">&lt;GlowButton</span> <span class="tok-attr">variant</span>=<span class="tok-str">"orange"</span><span class="tok-tag">&gt;</span>Orange<span class="tok-tag">&lt;/GlowButton&gt;</span>
+<span class="tok-tag">&lt;GlowButton</span> <span class="tok-attr">variant</span>=<span class="tok-str">"purple"</span> <span class="tok-attr">glow</span><span class="tok-tag">&gt;</span>Pulsing glow<span class="tok-tag">&lt;/GlowButton&gt;</span>
+<span class="tok-tag">&lt;GlowButton</span> <span class="tok-attr">variant</span>=<span class="tok-str">"outline"</span><span class="tok-tag">&gt;</span>Outline<span class="tok-tag">&lt;/GlowButton&gt;</span>
+<span class="tok-tag">&lt;GlowButton</span> <span class="tok-attr">variant</span>=<span class="tok-str">"purple"</span> <span class="tok-attr">disabled</span><span class="tok-tag">&gt;</span>Disabled<span class="tok-tag">&lt;/GlowButton&gt;</span></pre></div>
+    </div>
+  </section>
+
+  <!-- INPUTS -->
+  <section class="lp-section" id="inputs">
+    <div class="lp-section-head">
+      <div class="lp-eyebrow">GlowInput</div>
+      <h2>Inputs</h2>
+      <p>A text field with a neon focus ring. Focus it to see the cyan glow — type to see the live value.</p>
+    </div>
+    <div class="lp-demo">
+      <div class="lp-stage lp-stage--col" style="max-width:480px;">
+        <input class="pgr-input" id="demoInput" placeholder="Type something glowing…" />
+        <span class="lp-mut">You typed: <span id="demoEcho">—</span></span>
+      </div>
+      <div class="lp-code"><button class="lp-copy">Copy</button><pre><span class="tok-tag">&lt;GlowInput</span>
+  <span class="tok-attr">value</span>={value}
+  <span class="tok-attr">onChange</span>={(e) =&gt; setValue(e.target.value)}
+  <span class="tok-attr">placeholder</span>=<span class="tok-str">"Type something glowing…"</span>
+<span class="tok-tag">/&gt;</span></pre></div>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="lp-section" id="cards">
+    <div class="lp-section-head">
+      <div class="lp-eyebrow">GlowCard</div>
+      <h2>Cards</h2>
+      <p>Neon-bordered panels that lift and glow on hover. Each takes an accent color. Hover them.</p>
+    </div>
+    <div class="lp-demo">
+      <div class="lp-stage">
+        <div class="lp-grid-3">
+          <div class="pgr-card pgr-card--hover-glow" style="--pgr-accent: var(--pgr-purple);">
+            <h3 style="margin:0 0 .4rem;">Purple</h3>
+            <p class="lp-mut" style="margin:0;">Hover for the neon lift.</p>
+          </div>
+          <div class="pgr-card pgr-card--hover-glow" style="--pgr-accent: var(--pgr-cyan);">
+            <h3 style="margin:0 0 .4rem;">Cyan</h3>
+            <p class="lp-mut" style="margin:0;">Set the accent per card.</p>
+          </div>
+          <div class="pgr-card pgr-card--hover-glow" style="--pgr-accent: var(--pgr-green);">
+            <h3 style="margin:0 0 .4rem;">Green</h3>
+            <p class="lp-mut" style="margin:0;">hoverGlow can be disabled.</p>
+          </div>
+        </div>
+      </div>
+      <div class="lp-code"><button class="lp-copy">Copy</button><pre><span class="tok-tag">&lt;GlowCard</span> <span class="tok-attr">accent</span>=<span class="tok-str">"cyan"</span><span class="tok-tag">&gt;</span>
+  <span class="tok-tag">&lt;h3&gt;</span>Glowing card<span class="tok-tag">&lt;/h3&gt;</span>
+  <span class="tok-tag">&lt;p&gt;</span>Hover me.<span class="tok-tag">&lt;/p&gt;</span>
+<span class="tok-tag">&lt;/GlowCard&gt;</span></pre></div>
+    </div>
+  </section>
+
+  <!-- SWITCH -->
+  <section class="lp-section" id="switch">
+    <div class="lp-section-head">
+      <div class="lp-eyebrow">GlowSwitch</div>
+      <h2>Switch</h2>
+      <p>An accessible toggle with a glowing on-state. Click it.</p>
+    </div>
+    <div class="lp-demo">
+      <div class="lp-stage">
+        <button type="button" role="switch" aria-checked="true" class="pgr-switch" id="demoSwitch"><span class="pgr-switch__thumb"></span></button>
+        <span class="lp-mut" id="switchState">On</span>
+      </div>
+      <div class="lp-code"><button class="lp-copy">Copy</button><pre><span class="tok-tag">&lt;GlowSwitch</span>
+  <span class="tok-attr">checked</span>={on}
+  <span class="tok-attr">onChange</span>={setOn}
+  <span class="tok-attr">aria-label</span>=<span class="tok-str">"Notifications"</span>
+<span class="tok-tag">/&gt;</span></pre></div>
+    </div>
+  </section>
+
+  <!-- BADGES -->
+  <section class="lp-section" id="badges">
+    <div class="lp-section-head">
+      <div class="lp-eyebrow">GlowBadge</div>
+      <h2>Badges</h2>
+      <p>Glowing pill labels in all six accent colors.</p>
+    </div>
+    <div class="lp-demo">
+      <div class="lp-stage">
+        <span class="pgr-badge pgr-badge--orange">Orange</span>
+        <span class="pgr-badge pgr-badge--pink">Pink</span>
+        <span class="pgr-badge pgr-badge--purple">Purple</span>
+        <span class="pgr-badge pgr-badge--blue">Blue</span>
+        <span class="pgr-badge pgr-badge--cyan">Cyan</span>
+        <span class="pgr-badge pgr-badge--green">Green</span>
+      </div>
+      <div class="lp-code"><button class="lp-copy">Copy</button><pre><span class="tok-tag">&lt;GlowBadge</span> <span class="tok-attr">color</span>=<span class="tok-str">"green"</span> <span class="tok-attr">text</span>=<span class="tok-str">"Active"</span> <span class="tok-tag">/&gt;</span>
+<span class="tok-tag">&lt;GlowBadge</span> <span class="tok-attr">color</span>=<span class="tok-str">"pink"</span><span class="tok-tag">&gt;</span>Beta<span class="tok-tag">&lt;/GlowBadge&gt;</span></pre></div>
+    </div>
+  </section>
+
+  <!-- ACCORDION -->
+  <section class="lp-section" id="accordion">
+    <div class="lp-section-head">
+      <div class="lp-eyebrow">GlowAccordion</div>
+      <h2>Accordion</h2>
+      <p>Collapsible panels with a glowing open state. Click a header.</p>
+    </div>
+    <div class="lp-demo">
+      <div class="lp-stage lp-stage--col" style="max-width:600px;">
+        <div class="pgr-accordion" data-open="true">
+          <button class="pgr-accordion__trigger" aria-expanded="true"><span>What is phoenix-glow-react?</span>
+            <svg class="pgr-accordion__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+          <div class="pgr-accordion__panel"><div class="pgr-accordion__panel-inner"><div>A React component library wrapping the Phoenix Glow neon aesthetic.</div></div></div>
+        </div>
+        <div class="pgr-accordion" data-open="false">
+          <button class="pgr-accordion__trigger" aria-expanded="false"><span>How do I install it?</span>
+            <svg class="pgr-accordion__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+          <div class="pgr-accordion__panel"><div class="pgr-accordion__panel-inner"><div>Run npm install phoenix-glow-react and import the CSS once.</div></div></div>
+        </div>
+        <div class="pgr-accordion" data-open="false">
+          <button class="pgr-accordion__trigger" aria-expanded="false"><span>Is it accessible?</span>
+            <svg class="pgr-accordion__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+          <div class="pgr-accordion__panel"><div class="pgr-accordion__panel-inner"><div>Components use semantic roles and ARIA attributes where relevant.</div></div></div>
+        </div>
+      </div>
+      <div class="lp-code"><button class="lp-copy">Copy</button><pre><span class="tok-tag">&lt;GlowAccordion</span> <span class="tok-attr">title</span>=<span class="tok-str">"Details"</span> <span class="tok-attr">defaultOpen</span><span class="tok-tag">&gt;</span>
+  Hidden content goes here.
+<span class="tok-tag">&lt;/GlowAccordion&gt;</span></pre></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="lp-footer">
+  <div class="lp-container">
+    <p>Install: <code>npm install phoenix-glow-react</code> &nbsp;·&nbsp; Import once: <code>import "phoenix-glow-react/styles/phoenix-glow.css"</code></p>
+    <p>
+      <a href="https://github.com/sj-master/phoenix-glow-react" target="_blank" rel="noopener" style="color:#ffb273;">GitHub</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.npmjs.com/package/phoenix-glow-react" target="_blank" rel="noopener" style="color:#ffb273;">npm</a> <span class="lp-soon">soon</span>
+      &nbsp;·&nbsp;
+      <a href="https://phoenixsecure.dev" target="_blank" rel="noopener" style="color:#ffb273;">phoenixsecure.dev</a>
+    </p>
+    <p>PHX-IT • Phoenix UI — Apache-2.0 © 2025 Skyler J. Jones</p>
+  </div>
+</footer>
+
+<script>
+// input echo
+const input = document.getElementById('demoInput');
+const echo = document.getElementById('demoEcho');
+input.addEventListener('input', () => { echo.textContent = input.value || '—'; });
+
+// switch toggle
+const sw = document.getElementById('demoSwitch');
+const swState = document.getElementById('switchState');
+sw.addEventListener('click', () => {
+  const next = sw.getAttribute('aria-checked') !== 'true';
+  sw.setAttribute('aria-checked', String(next));
+  swState.textContent = next ? 'On' : 'Off';
+});
+
+// accordions
+document.querySelectorAll('.pgr-accordion__trigger').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const acc = btn.closest('.pgr-accordion');
+    const open = acc.getAttribute('data-open') === 'true';
+    acc.setAttribute('data-open', String(!open));
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+});
+
+// copy buttons
+document.querySelectorAll('.lp-copy').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const code = btn.parentElement.querySelector('pre').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1400);
+    });
+  });
+});
+</script>
+</body>
+</html>

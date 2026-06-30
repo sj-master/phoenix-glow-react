@@ -1,0 +1,82 @@
+/*!
+ * PHX-IT • Phoenix UI — design tokens
+ * © Skyler Jones — All rights reserved.
+ *
+ * Import once in your app's global CSS so the Tailwind UI layer
+ * (bg-background, text-phoenix-orange, etc.) resolves:
+ *   @import "phoenix-glow-react/styles/phoenix-tokens.css";
+ */
+
+:root {
+  --background: 0 0% 4%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 12%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 12%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 12 100% 62%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 18%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 18%;
+  --muted-foreground: 0 0% 65%;
+  --accent: 0 0% 18%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 18%;
+  --input: 0 0% 18%;
+  --ring: 12 100% 62%;
+  --radius: 0.75rem;
+
+  --phoenix-orange: 12 100% 62%;
+  --phoenix-pink: 330 100% 65%;
+  --phoenix-magenta: 320 100% 58%;
+  --phoenix-purple: 270 91% 65%;
+  --phoenix-blue: 200 100% 50%;
+  --phoenix-cyan: 190 100% 55%;
+  --phoenix-green: 142 76% 36%;
+  --phoenix-gold: 33 100% 55%;
+  --phoenix-red: 0 100% 65%;
+  --phoenix-dark: 250 25% 8%;
+
+  --sidebar-background: 0 0% 8%;
+  --sidebar-foreground: 0 0% 95%;
+  --sidebar-primary: 12 100% 62%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 0 0% 15%;
+  --sidebar-accent-foreground: 0 0% 95%;
+  --sidebar-border: 0 0% 18%;
+  --sidebar-ring: 12 100% 62%;
+}
+
+.dark {
+  --background: 0 0% 4%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 12%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 12%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 12 100% 62%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 18%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 18%;
+  --muted-foreground: 0 0% 65%;
+  --accent: 0 0% 18%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 18%;
+  --input: 0 0% 18%;
+  --ring: 12 100% 62%;
+
+  --sidebar-background: 0 0% 8%;
+  --sidebar-foreground: 0 0% 95%;
+  --sidebar-primary: 12 100% 62%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 0 0% 15%;
+  --sidebar-accent-foreground: 0 0% 95%;
+  --sidebar-border: 0 0% 18%;
+  --sidebar-ring: 12 100% 62%;
+}
